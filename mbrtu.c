@@ -69,12 +69,12 @@ modbus_set_response_timeout(ctx, response_timeout_sec , response_timeout_usec);
 
 if(fc==2) //read discreete inputs
 {
-rc=modbus_read_input_bits(ctx, addr, nb, inputs);
-if(rc == -1)
-	{
+    rc=modbus_read_input_bits(ctx, addr, nb, inputs);
+    if(rc == -1)
+    {
 	fprintf(stderr, "Read discreete inputs, %s\n", modbus_strerror(errno));
 	return -1;
-	}	
+    }
 }
 
 
@@ -82,24 +82,25 @@ if(rc == -1)
 
 if(fc==3) //read holding registers
 {
-rc=modbus_read_registers(ctx,addr,nb,registers);
-if(rc == -1)
-	{
+    rc=modbus_read_registers(ctx,addr,nb,registers);
+    if(rc == -1)
+    {
 	fprintf(stderr, "Read holding registers, %s\n", modbus_strerror(errno));
 	return -1;
-	}
+    }
 }
 
 
 if(fc==4) //read input registers
 {
 	rc=modbus_read_input_registers(ctx,addr,nb,registers);
-if(rc == -1)
+	if(rc == -1)
 	{
-	fprintf(stderr, "Read input registers, %s\n", modbus_strerror(errno));
-	return -1;
+	    fprintf(stderr, "Read input registers, %s\n", modbus_strerror(errno));
+	    return -1;
 	}
 }
+
 if(fc==5) //write single coil
 {
 	//printf("write single coil\n");
@@ -144,14 +145,14 @@ printf("argc=%d %s\n",argc,argv[5]);
 if(fc == 2)
 {
 for(i = 0; i<nb;i++)
-printf("%d ",inputs[i]);
+    printf("%d ",inputs[i]);
 printf("\n");
 }
 
 if(fc==3 || fc==4)
 for(i=0;i<nb;i++)
 {
-if(registers[i] != 0 ) printf("register[%d] = %u\n",i+addr,registers[i]);
+    if(registers[i] != 0 ) printf("register[%d] = %u\n",i+addr,registers[i]);
 }
 
 modbus_close(ctx);
